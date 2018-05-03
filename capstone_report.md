@@ -34,28 +34,29 @@ I have solved the this problem using a more traditional machine learning approac
 
 For Naive Baiyes approach, I have used Compute Receiver operating characteristic (ROC) method. This method is suitable for the binary classification problem which 
 is the case here. The ROC curve is a graphical plot that illustrates the performance of any binary classifier system as its discrimination threshold is varied.
-To understand ROC curve, please refer this, ![link](https://www.quora.com/Whats-ROC-curve)
+To understand ROC curve, please refer this, link(https://www.quora.com/Whats-ROC-curve).
 
 And for RNN technique, I have used *Sigmoid* activation function. RNN/LSTM networks are bit different than the normal feedforward
 network. Only the last output gets considered, rest all gets discarded. Cost is calculated using Mean Squared Error and uses AdamOptimizer.
 
 
 ## II. Analysis
-_(approx. 2-4 pages)_
 
 ### Data Exploration
-This dataset contains 25,000 labeled training reviews, 50,000 unlabeled training reviews, and 25,000 testing reviews. Unlabeled training data and testing data doesn't have a sentiment field; only labeled training data has sentiment field. So, to solve the problem, i have used only labelled training data so that the implementation can get trained as well as tested. 
+IMDB dataset contains 25,000 labeled training reviews, 50,000 unlabeled training reviews, and 25,000 testing reviews. Unlabeled training data and testing data doesn't have a sentiment or output field; only labeled training data has sentiment field. So, to solve the problem, I have used only labelled training data. This way the implementation can get trained as well as tested. 
 
-The file (labeledTrainData.tsv) is tab-delimited and has a header row followed by 25,000 rows and contains three columns/fields:
+The file *(labeledTrainData.tsv)* is tab-delimited and has a header row followed by 25,000 rows and contains three columns/fields:
 
-['id' 'sentiment' 'review']
+['id', 'sentiment', 'review']
 
+**Fields in the file are:**
 - *id*: Unique identifier for each entry in the dataset; we don't need this field for modeling.
 - *sentiment*: Contains binary values (1 and 0). 1 for positive and 0 for negative. This is the label of the model.
 - *review*: a Detailed review of movies. This is the text or feature on which machine learning models will get trained.
 
-I have used 20% of data for testing and will report the accuracy of the model on this randomly selected dataset.
-Distribution is Dataset is balanced (i.e. both positive and negative are 50% each).
+I have used 20% of data for testing and will report the accuracy of the model on this randomly selected dataset. The remaining 80% will be used for training the model. 
+Distribution is Dataset is balanced (i.e. both positive and negative are 50% each). 12,500 are positive reviews and equal number for negative reviews as well.
+
 
 
 ### Exploratory Visualization
@@ -63,7 +64,7 @@ One of the major aspect of neural networks are that they take inputs of fixed le
 
 So lets study the distribution of word count across the reviews and then decided upper limit on the number of words to be considered for each review. 
 
-!(images/words-distribution.png)[images/words-distribution.png]
+![images/words-distribution.png](images/words-distribution.png)
 
 On the X-axis it defines distribution of number of words; and on Y-axis it captures how many reviews fall in that category.
 
