@@ -66,16 +66,18 @@ So lets study the distribution of word count across the reviews and then decided
 
 ![images/words-distribution.png](images/words-distribution.png)
 
-On the X-axis it defines distribution of number of words; and on Y-axis it captures how many reviews fall in that category.
+On the X-axis, it defines distribution of number of words.
+And on Y-axis it captures how many reviews fall in that category.
 
-From, the chart it's evident that most of the reviews fall under 250 words. 
-Also, need to note that this chart was prepared after cleaning the reviews of punctuations, special chars, and stop words. 
+_*From the chart, it's evident that most of the reviews fall under 250 words.*_ 
+Also, please note that this chart was prepared after cleaning the reviews of punctuations, special chars, and stop words. 
 
 ### Algorithms and Techniques
 For this text classification problem, I have used below two approaches:
 
 #### Naive Bayes Classifier:
-One particular feature of Naive Bayes is that it’s a good algorithm for working with text classification. The relative simplicity of the algorithm and the independent features assumption of Naive Bayes make it a strong performer for classifying texts.The Naive Bayes classifier uses the Bayes Theorem to select the outcome with the highest probability. This classifier assumes the features(in this case the words) are independent and hence the word naive.
+One particular feature of Naive Bayes is that, it’s a good algorithm for working with text classification. The relative simplicity of the algorithm and the independent features assumption of Naive Bayes make it a strong performer for classifying texts. 
+The Naive Bayes classifier uses the **Bayes Theorem** to select the outcome with the highest probability. This classifier assumes the features(in this case- words) are independent and hence the word naive.
 
 The Naive Bayes classifier for this problem says that the probability of the label (positive or negative) for the given review text is equal to the probability of the text given the label, times the probability a label occurs, everything divided by the probability that this text is found.
 
@@ -91,17 +93,22 @@ We want to compare the probabilities of the labels and choose the one with highe
 
 P(label=positive) is the fraction of the training set that is a positive text;
 P(word1|label=negative) is the number of times the word1 appears in a negative text divided by the number of times the word1 appears in every text.
+I have used sklearn library for implementing Naive-Bayes.
 
 #### Recurrent Neural Network/Long Short-Term Memory (RNN/LSTM):
-*Recurrent Neural Network, and is basically a neural network that can be used when your data is treated as a sequence, where the particular order of the 
-data-points matter. More importantly, this sequence can be of arbitrary length.*
+**Recurrent Neural Network, is basically a neural network that can be used when data is treated as a sequence, where the particular order of the 
+data-points matter. More importantly, this sequence can be of arbitrary length.**
+
 They are networks with loops in them, allowing information to persist. A recurrent neural network can be thought of as multiple copies of the same network, each passing a message to a successor.
-Consider what happens if we unroll the loop. Below is image from famous colah blog (http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
+Consider what happens if we unroll the loop. 
+
+Below is image from famous colah blog (http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
 
 ![RNN-unrolled](https://github.com/raiskumar/udacity-ml-problems/blob/master/RNN-unrolled.png)
 
-Recursive neural network proved to be efficient in constructing sentence representations. The model has tree structure, which is able to capture semantic of sentence.
-RNN suffer from vanishing gradients problem, and makes it difficult to learn long-distance correlation in sequence. LSTM are a type of RNN.
+Recursive neural network proved to be efficient in constructing sentence representations. The model has tree
+structure, which is able to capture semantic of sentence. RNN suffer from vanishing gradients problem, and makes it difficult to learn long-distance correlation in sequence. LSTM is a type 
+a type of RNN and now mostly the de-facto implementation of RNN. 
 
 ### Benchmark
 Naive-Bayes approach discussed above acts as benchmark. The final approach should provided accuracy more than the benchmark value.
