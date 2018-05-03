@@ -58,7 +58,6 @@ I have used 20% of data for testing and will report the accuracy of the model on
 Distribution is Dataset is balanced (i.e. both positive and negative are 50% each). 12,500 are positive reviews and equal number for negative reviews as well.
 
 
-
 ### Exploratory Visualization
 One of the major aspect of neural networks are that they take inputs of fixed length. Reviews are not of fixed length, this means we can't directly feed them to the network.
 
@@ -121,7 +120,6 @@ naive-bayes.ipynb gives the benchmark values as 85%. So the RNN/LSTM network sho
  
 
 ## III. Methodology
-_(approx. 3-5 pages)_
 
 ### Data Preprocessing
 Text contain lot of noise or un-important content. In current problem as well, not all features will be equally important. I have used below techniques to preprocess the dataset. 
@@ -166,20 +164,24 @@ thousands of words, and we need a more efficient representation for our input da
 Word2Vec or similar implementation can also be used for embedding. But it's good enough to just have an embedding 
 layer and let the network learn the embedding table on it's own.
 
-From the embedding layer, the new representations will be passed to LSTM cells. These will add recurrent connections to the network so we can include information about the sequence of words in the data. 
+
+From the embedding layer, the new representations will be passed to LSTM cells. 
+![images/lstm-cell.png](images/lstm-cell.png)
+
+
+These will add recurrent connections to the network so we can include information about the sequence of words in the data. 
 Finally, the LSTM cells will go to a sigmoid output layer here. The output layer will just be a single unit then, with a sigmoid activation function.
 We don't care about the sigmoid outputs except for the very last one, we can ignore the rest. We'll calculate the cost from the output of the last step and the training label.
 
 
 ### Refinement
 Below are parameters which I tweaked to improve the performance:
-- dropout_rate: started with .8 and then increased it to .9 finally.
+- dropout_rate: started with .8 and then increased it to .9 .
 - num_units: num_units, the number of units in the cell, called lstm_size in this code. Usually larger is better performance wise. Started with value of 128 and then finally trained model with value of 512.
 - num_hidden_layer: I tested model in my local laptop so kept it at 1. But it can be increased further in a more powerful CPU/GPU machine.
 
 
 ## IV. Results
-_(approx. 2-3 pages)_
 
 ### Model Evaluation and Validation
 During model implementation, tested the performance by varying different hyperparameters:
@@ -193,7 +195,7 @@ During model implementation, tested the performance by varying different hyperpa
 - Used 80% of data for modelling and 20% for testing the accuracy of the model.
 - From the embedding layer, the new representations will be passed to LSTM cells. These will add recurrent 
   connections to the network so we can include information about the sequence of words in the data.
-- Wrap that LSTM cell in a dropout layer to help prevent the network from overfitting.
+- Wrap that LSTM cell in a dropout layer to help prevent the network from overfiting.
 - LSTM cells go to sigmoid output. 
 - We don't care about the sigmoid outputs except for the very last one, we can ignore the rest.  
 
