@@ -130,11 +130,13 @@ Text contain lot of noise or un-important content. In current problem as well, n
 Punctuation, numbers and special characters are not going to add any value in sentiment analysis, so will remove all such characters. Also, the data is generated from an online platform so it might have some HTML tags as well; will get rid of them as well. 
 
 #### Remove stop words
-Words like and, the, it etc known as *Stop Words* also don't carry any meaningful information so; will remove all stop words from the reviews. Plan to use Python's **NLTK** library to get list of English Stop words. 
+Words like **and, the, it** etc don't carry any meaningful information for sentiment classification. These words are known as Stop Words. I will remove all stop words from the reviews. 
+Plan to use Python's **NLTK** library to get list of English Stop words. 
 
 #### Stemmerize 
-Not all unique words are different. Take example of love and loves; both are same but if treated differently it will un-necessarily increase the vocab. 
+Not all unique words are different. Take example of *love* and *loves*; both are same but if treated differently it will un-necessarily increase the vocab (size).
 
+**Below diagram shows how above techniques change review:**
 
  ![images/preprocessing.png](images/preprocessing.png)
  
@@ -144,14 +146,14 @@ The implementation can be divided into two major stages:
 2. Model Implementation (Naive Bayes and RNN/LSTM)
 
 #### Pre-Processing Layer 
-There are two implementations so, I have abstracted common operations in a separate python file, Imdb.py.
+There are two implementations; so I have abstracted common operations in a separate python file, Imdb.py.
 Some of the operations are:
 
-clean_text(review): Takes a particular review and removes punctuation, numbers and special characters. Also convert all chars to lower case.
-remove_stop_words(review): Takes a particular review and removes all stop words by using Python's NLTK library. It removes only English stop words as we are dealing with English text.
-stemmerize(review): STEMMER helps to reduce the vocabulary size drastically by treating similar words like love, lovely, loves as same.
+- clean_text(review): Takes a particular review and removes punctuation, numbers and special characters. Also convert all chars to lower case.
+- remove_stop_words(review): Takes a particular review and removes all stop words by using Python's NLTK library. It removes only English stop words as we are dealing with English text.
+- stemmerize(review): STEMMER helps to reduce the vocabulary size drastically by treating similar words like love, lovely, loves as same.
 
-Apart from above it also provides some reusable methods. Methods in Imdb.py are documented properly.
+Apart from above it also provides some reusable methods. Imdb.py is documented properly.
 
 #### Model Implementation
 The project contains two notebooks files one for each approach. For the first benchmarking approach, I have used Naive Bayes and it's implemented 
@@ -159,17 +161,21 @@ using SKLearn library (check naive-bayes.ipynb).
 For the final approach, I have used LSTM and have used Tensorflow for this. The implementation can be found in rnn-lstm.ipynb. 
 It's a quite simple implementation with one Input layer, one LSTM layer and then final output layer.  
 
-Here, we'll pass in words to an embedding layer. We need an embedding layer because we have tens of thousands of words, so we'll need a more efficient representation for our input data than one-hot encoded vectors. You should have seen this before from the word2vec lesson. You can actually train up an embedding with word2vec and use it here. But it's good enough to just have an embedding layer and let the network learn the embedding table on it's own.
-From the embedding layer, the new representations will be passed to LSTM cells. These will add recurrent connections to the network so we can include information about the sequence of words in the data. Finally, the LSTM cells will go to a sigmoid output layer here. We're using the sigmoid because we're trying to predict if this text has positive or negative sentiment. The output layer will just be a single unit then, with a sigmoid activation function.
+In RNN/LSTM model words are passed to an embedding layer. Embedding layer is required because we have tens of 
+thousands of words, and we need a more efficient representation for our input data than one-hot encoded vectors. 
+Word2Vec or similar implementation can also be used for embedding. But it's good enough to just have an embedding 
+layer and let the network learn the embedding table on it's own.
+
+From the embedding layer, the new representations will be passed to LSTM cells. These will add recurrent connections to the network so we can include information about the sequence of words in the data. 
+Finally, the LSTM cells will go to a sigmoid output layer here. The output layer will just be a single unit then, with a sigmoid activation function.
 We don't care about the sigmoid outputs except for the very last one, we can ignore the rest. We'll calculate the cost from the output of the last step and the training label.
 
 
-https://www.dataquest.io/blog/naive-bayes-tutorial/
-
 ### Refinement
 Below are parameters which I tweaked to improve the performance:
-dropout_rate: started with .8 and then increased it to .9 finally.
-num_units: num_units, the number of units in the cell, called lstm_size in this code. Usually larger is better performance wise. Common values are 128, 256, 512, etc. 
+- dropout_rate: started with .8 and then increased it to .9 finally.
+- num_units: num_units, the number of units in the cell, called lstm_size in this code. Usually larger is better performance wise. Started with value of 128 and then finally trained model with value of 512.
+- num_hidden_layer: I tested model in my local laptop so kept it at 1. But it can be increased further in a more powerful CPU/GPU machine.
 
 
 ## IV. Results
@@ -253,3 +259,4 @@ In this section, you will need to provide discussion as to how one aspect of the
 
 https://www.toptal.com/machine-learning/nlp-tutorial-text-classification?utm_campaign=Toptal%20Engineering%20Blog&utm_source=hs_email&utm_medium=email&utm_content=62089346&_hsenc=p2ANqtz-941LZf4kwQwihG9HKVyl-PmdvELSXfqC0rryV8kAEnfc97gE1tvqwUzxWmfoEsm2-m6aPW6eoWwoeENdHNlR00L-OCtg&_hsmi=62089346
 https://www.oreilly.com/learning/perform-sentiment-analysis-with-lstms-using-tensorflow
+https://www.dataquest.io/blog/naive-bayes-tutorial/
