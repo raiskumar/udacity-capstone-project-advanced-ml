@@ -37,7 +37,7 @@ is the case here. The ROC curve is a graphical plot that illustrates the perform
 To understand ROC curve, please refer this, ![link](https://www.quora.com/Whats-ROC-curve)
 
 And for RNN technique, I have used *Sigmoid* activation function. RNN/LSTM networks are bit different than the normal feedforward
-network. Only the last output gets considered rest all gets discarded. Cost is calculated using Mean Squared Error and used AdamOptimizer.
+network. Only the last output gets considered, rest all gets discarded. Cost is calculated using Mean Squared Error and uses AdamOptimizer.
 
 
 ## II. Analysis
