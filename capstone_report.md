@@ -34,7 +34,7 @@ I have solved the this problem using a more traditional machine learning approac
 
 For Naive Baiyes approach, I have used Compute Receiver operating characteristic (ROC) method. This method is suitable for the binary classification problem which 
 is the case here. The ROC curve is a graphical plot that illustrates the performance of any binary classifier system as its discrimination threshold is varied.
-To understand ROC curve, please refer this !(link)[https://www.quora.com/Whats-ROC-curve]
+To understand ROC curve, please refer this, ![link](https://www.quora.com/Whats-ROC-curve)
 
 And for RNN technique, I have used *Sigmoid* activation function. RNN/LSTM networks are bit different than the normal feedforward
 network. Only the last output gets considered rest all gets discarded. Cost is calculated using Mean Squared Error and used AdamOptimizer.
