@@ -96,8 +96,8 @@ P(word1|label=negative) is the number of times the word1 appears in a negative t
 I have used sklearn library for implementing Naive-Bayes.
 
 #### Recurrent Neural Network/Long Short-Term Memory (RNN/LSTM):
-**Recurrent Neural Network, is basically a neural network that can be used when data is treated as a sequence, where the particular order of the 
-data-points matter. More importantly, this sequence can be of arbitrary length.**
+*Recurrent Neural Network, is basically a neural network that can be used when data is treated as a sequence, where the particular order of the 
+data-points matter. More importantly, this sequence can be of arbitrary length.*
 
 They are networks with loops in them, allowing information to persist. A recurrent neural network can be thought of as multiple copies of the same network, each passing a message to a successor.
 Consider what happens if we unroll the loop. 
