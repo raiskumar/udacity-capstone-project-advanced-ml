@@ -104,10 +104,14 @@ Consider what happens if we unroll the loop.
 
 Below is image from famous colah blog (http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
 
-![RNN-unrolled](https://github.com/raiskumar/udacity-ml-problems/blob/master/RNN-unrolled.png)
+![RNN-unrolled](images/RNN-unrolled.png)
 
 Recursive neural network proved to be efficient in constructing sentence representations. The model has tree
-structure, which is able to capture semantic of sentence. RNN suffer from vanishing gradients problem, and makes it difficult to learn long-distance correlation in sequence. LSTM is a type 
+structure, which is able to capture semantic of sentence. 
+
+![lstm-1](images/lstm-1.png)
+
+RNN suffer from vanishing gradients problem, and makes it difficult to learn long-distance correlation in sequence. LSTM is a type 
 a type of RNN and now mostly the de-facto implementation of RNN. 
 
 ### Benchmark
