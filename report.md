@@ -226,17 +226,16 @@ In this section, your model’s final solution and its results should be compare
 ### Reflection
 I thoroughly enjoyed exploring sentiment analysis. I was aware of the subject earlier but had never explored it so deeper. Here are major steps:
 
-- _There are quite a few datasets available publicly for sentiment analysis. I wanted to use a dataset which is not very trivial (like just a few lines of tweets), and that's where I feel IMDB dataset is perfect. Reviews size go all the way up to 1400 words._
-- _The dataset is derived from an online platform, this means that there going to be enough noise which needs to be effectively filtered out_
-- _One of the interesting part of the Capstone project is to decide your own success/evaluation criteria. That made me to think through the problem and recommend using Naive Bayes to benchmark the accuracy._
-- _Naive Bayes fits quite well in this problem, it's simple to implement and found that it gave surprisingly good accuracy in just a few minutes. In fact, I was quite surprised to see the accuracy of 85% for Naive
-  Bayes algorithm. It shows how powerful it is. And, unlike Neural Networks which take hours to get decent accuracy, Naive Bayes produced this accuracy in just matter of 5-10 mins._
-- _Once I decided to use one model for benchmarking and then again a different model as final solution. I thought, to abstract some repetitive steps in a separate python file. This is where, I ended up writing Imdb.py. This python 3 class file has methods to load dataset, clean dataset and perform some other reusable methods on dataset._
-- _My next dilemma was to whether let network learn the word embedding or use some existing word embedding like Word2Vec. Implementation would vary depending on which path is chosen.I decided to go ahead with network learning word representation on its own, keeping in mind that in this case performance might not be as good as using a pre-trained model._
-- _Deciding on sequence length was interesting. Drew a chart on distribution of sequence length and frequency gave idea that 250 looks a good choice_ 
-_ _RNN/LSTM networks are bit different that normal feed forward networks so it took a while to appreciate LSTM networks and why they are apt fit for the current problem. I did few POCs around LSTM to understand them._
-_ _Once the network was implemented, I explored on fine tuning it. One surprising aspect was, network performance on training and test data was not consistent. On training dataset it gave good performance and reached as high as 99% but on test dataset it hovered around 85%. I tweaked parameters to improve the performance._
-- _I think there is still scope to improve the performance. The network can still be made deeper and can be trained on GPU. Currently, it takes around 4-5 hours on my laptop._ 
+- There are quite a few datasets available publicly for sentiment analysis. I wanted to use a dataset which is not very trivial (like just a few lines of tweets), and that's where I feel IMDB dataset is perfect. Reviews size go all the way up to 1400 words.
+- The dataset is derived from an online platform, this means that there going to be enough noise which needs to be effectively filtered out.
+- One of the interesting part of the Capstone project is to decide your own success/evaluation criteria. That made me to think through the problem and recommend using Naive Bayes to benchmark the accuracy.
+- Naive Bayes fits quite well in this problem, it's simple to implement and found that it gave surprisingly good accuracy in just a few minutes. In fact, I was quite surprised to see the accuracy of 85% for Naive Bayes algorithm. It shows how powerful it is. And, unlike Neural Networks which take hours to get decent accuracy, Naive Bayes produced this accuracy in just matter of 5-10 mins.
+- Once I decided to use one model for benchmarking and then again a different model as final solution. I thought, to abstract some repetitive steps in a separate python file. This is where, I ended up writing Imdb.py. This python 3 class file has methods to load dataset, clean dataset and perform some other reusable methods on dataset.
+- My next dilemma was to whether let network learn the word embedding or use some existing word embedding like Word2Vec. Implementation would vary depending on which path is chosen.I decided to go ahead with network learning word representation on its own, keeping in mind that in this case performance might not be as good as using a pre-trained model.
+- Deciding on sequence length was interesting. Drew a chart on distribution of sequence length and frequency gave idea that 250 looks a good choice.
+- RNN/LSTM networks are bit different that normal feed forward networks so it took a while to appreciate LSTM networks and why they are apt fit for the current problem. I did few POCs around LSTM to understand them.
+- Once the network was implemented, I explored on fine tuning it. One surprising aspect was, network performance on training and test data was not consistent. On training dataset it gave good performance and reached as high as 99% but on test dataset it hovered around 85%. I tweaked parameters to improve the performance.
+- There is still scope to improve the performance. The network can still be made deeper and can be trained on GPU. Currently, it takes around 4-5 hours on my laptop. 
           
   
 ### Improvement
