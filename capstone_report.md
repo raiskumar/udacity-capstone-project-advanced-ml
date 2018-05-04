@@ -235,26 +235,27 @@ In this section, you will need to provide some form of visualization that emphas
 ### Reflection
 I thoroughly enjoyed exploring sentiment analysis. I was aware of the subject earlier but had never explored it so deeper. Here are major steps:
 
-- _There are quite a few datasets available publicly for sentiment analysis. I wanted to use a dataset which is not very trivial (like just few lines of tweets), and that's where i feel IMDB dataset is perfect. Reviews size go all the way upto 1000 words._
-- _The dataset is deprived from online platform, this means that there going to be enough noise in form of special chars (html tags or fillers like huh, hmm, etc)_
-- _One of the interesting part of the Capstone project is to decide your own success/evalution criteria. That made me to think through the problem and come up with interesting approach to benchmark it using a more traditional approach._
+- _There are quite a few datasets available publicly for sentiment analysis. I wanted to use a dataset which is not very trivial (like just few lines of tweets), and that's where I feel IMDB dataset is perfect. Reviews size go all the way upto 1400 words._
+- _The dataset is derived from an online platform, this means that there going to be enough noise which needs to be effectively filtered out_
+- _One of the interesting part of the Capstone project is to decide your own success/evaluation criteria. That made me to think through the problem and recommend using Naive Bayes to benchmark the accuracy._
 - _Naive Bayes fits quite well in this problem, it's simple to implement and found that it gave surprisingly good accuracy in just few minutes. In fact, I was quite surprised to see accuracy of 85% for Naive
   Bayes algorithm. It shows how powerful it is. And, unlike Neural Networks which take hours to day to get decent accuracy, Naive Bayes produced this accuracy in just matter of 5-10 mins._
-- _Once I decided to use one model for benchmarking and then again a model as final solution. I thought, to abstract some repetitive steps in a separate python file. This is where, i ended up 
-  writing Imdb.py. This is is separate python class which has methods to load dataset, clean dataset and perform some other methods on dataset._
-- _My next major dilema in solving the problem was to weather let network learn the word embedding or use some existing word embedding like Word2Vec. Approaches in either cases 
-  are different so taking one path was essential. I decided to go ahead with network learning word representation on its own, keeping in mind that in this case performance might not be as good as using a pre-trained model._
+- _Once I decided to use one model for benchmarking and then again a different model as final solution. I thought, to abstract some repetitive steps in a separate python file. This is where, I ended up 
+  writing Imdb.py. This python 3 class file has methods to load dataset, clean dataset and perform some other reusable methods on dataset._
+- _My next dilema was to whether let network learn the word embedding or use some existing word embedding like Word2Vec. Implementation would vary depending on which path is chosen.
+  I decided to go ahead with network learning word representation on its own, keeping in mind that in this case performance might not be as good as using a pre-trained model._
+- _Deciding on sequence length was interesting. Drew a chart on distribution of sequence length and frequency gave idea that 250 looks a good choice_  
 _ _RNN/LSTM networks are bit different that normal feed forward networks so it took a while to appreciate LSTM networks and why they are apt fit for the 
   current problem. I did few POCs around LSTM to understand them._
-_ _Once the network was implemented, i spent some time fine tuning it. One surprising aspect was, network performance on training and test data was not consistent. 
-  On training dataset it gave good performance and reached as high as 99% but on test dataset it hovered around 85%. I played to hyperparameters to improve the performance._
-- _I think there is still scope to improve the performance. The network can still be made deeper and can be trained on GPU for quick evalution. Currently, it takes 4-5 hours on my laptop to complete one cycle of modelling._ 
+_ _Once the network was implemented, I explored on fine tuning it. One surprising aspect was, network performance on training and test data was not consistent. 
+  On training dataset it gave good performance and reached as high as 99% but on test dataset it hovered around 85%. I tweaked parameters to improve the performance._
+- _I think there is still scope to improve the performance. The network can still be made deeper and can be trained on GPU. Currently, it takes 4-5 hours on my laptop to complete one cycle of modelling._ 
           
   
 ### Improvement
 In the model, I let the network learn the word encoding. I think, using pre-trained models like Word2Vec can help 
-improve the performance of the model. I think there is still scope to improve the performance. The network can be made more deeper to improve performance. 
-Currently, it takes 4-5 hours on my laptop to complete one cycle of modelling, running it on more powerful CPU or GPU will make the training cycle quicker and that would enable to tweak the parameters and see the corresponding impact.
+improve the performance of the model.
+The network can be made more deeper to improve performance. 
 
 I definitely feel that performance of the model can be pushed further. As discussed above, there are possibilities to improve the performance.  
 
