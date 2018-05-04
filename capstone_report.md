@@ -179,6 +179,8 @@ Below are parameters which I tweaked to improve the performance:
 - dropout_rate: started with .8 and then increased it to .9 .
 - num_units: num_units, the number of units in the cell, called lstm_size in this code. Usually larger is better performance wise. Started with value of 128 and then finally trained model with value of 512.
 - num_hidden_layer: I tested model in my local laptop so kept it at 1. But it can be increased further in a more powerful CPU/GPU machine.
+- dropout_rate: used 0.9
+- learning_rate: started with 0.001 and then finally used 0.01
 
 
 ## IV. Results
@@ -192,20 +194,18 @@ During model implementation, tested the performance by varying different hyperpa
   words on its own in the course of training.
 - Reviews length are variable. Fixed the sequence length to 250 words. Reviews which are more than 250 words will have
   only last 250 words. And reviews which are less than 250 words will get padded with 0 in the beginning.
-- Used 80% of data for modelling and 20% for testing the accuracy of the model.
 - From the embedding layer, the new representations will be passed to LSTM cells. These will add recurrent 
   connections to the network so we can include information about the sequence of words in the data.
 - Wrap that LSTM cell in a dropout layer to help prevent the network from overfiting.
 - LSTM cells go to sigmoid output. 
 - We don't care about the sigmoid outputs except for the very last one, we can ignore the rest.  
 
+The model is generic for sentiment analysis problems. I have tweaked many parameters and saw that results were almost consistent. Minor changes in parameters didn't result in
+major deviation in results. So, can say that the results can be trusted.  
+ 
+Tested this model on another Kaggle problem(https://www.kaggle.com/c/si650winter11), Michigan University Sentiment Classification Contest.
+The data set has sentences extracted from social media and then classified into positive or negative. Model without much changes gave good results.
 
-
-In this section, the final model and any supporting qualities should be evaluated in detail. It should be clear how the final model was derived and why this model was chosen. In addition, some type of analysis should be used to validate the robustness of this model and its solution, such as manipulating the input data or environment to see how the model’s solution is affected (this is called sensitivity analysis). Questions to ask yourself when writing this section:
-- _Is the final model reasonable and aligning with solution expectations? Are the final parameters of the model appropriate?_
-- _Has the final model been tested with various inputs to evaluate whether the model generalizes well to unseen data?_
-- _Is the model robust enough for the problem? Do small perturbations (changes) in training data or the input space greatly affect the results?_
-- _Can results found from the model be trusted?_
 
 ### Justification
 RNN/LSTM models have proved efficient in natural language problems. LSTM cells help the network remember the inputs 
@@ -213,7 +213,10 @@ which are important. So certain words which can play major role in deciding if t
 get captured. 
 
 I have implemented a quite basic LSTM network but, still it outperformed the benchmark model (through Naive-Bayes)
-accuracy. 
+accuracy. The fundamental problem with Naive Bayes approach is that it doesn't take into order the the relative positive of words in the review or sentences. 
+It barely goes by the presence, absence of a word and how many times it appeared. But, LSTM model captures the order part as well. It can
+also capture influence of a word or words which appeared say 100 words before. 
+
 In this section, your model’s final solution and its results should be compared to the benchmark you established earlier in the project using some type of statistical analysis. You should also justify whether these results and the solution are significant enough to have solved the problem posed in the project. Questions to ask yourself when writing this section:
 - _Are the final results found stronger than the benchmark result reported earlier?_
 - _Have you thoroughly analyzed and discussed the final solution?_
@@ -230,21 +233,30 @@ In this section, you will need to provide some form of visualization that emphas
 - _If a plot is provided, are the axes, title, and datum clearly defined?_
 
 ### Reflection
-In this section, you will summarize the entire end-to-end problem solution and discuss one or two particular aspects of the project you found interesting or difficult. You are expected to reflect on the project as a whole to show that you have a firm understanding of the entire process employed in your work. Questions to ask yourself when writing this section:
-- _Have you thoroughly summarized the entire process you used for this project?_
-- _Were there any interesting aspects of the project?_
-- _Were there any difficult aspects of the project?_
-- _Does the final model and solution fit your expectations for the problem, and should it be used in a general setting to solve these types of problems?_
+I thoroughly enjoyed exploring sentiment analysis. I was aware of the subject earlier but had never explored it so deeper. Here are major steps:
 
+- _There are quite a few datasets available publicly for sentiment analysis. I wanted to use a dataset which is not very trivial (like just few lines of tweets), and that's where i feel IMDB dataset is perfect. Reviews size go all the way upto 1000 words._
+- _The dataset is deprived from online platform, this means that there going to be enough noise in form of special chars (html tags or fillers like huh, hmm, etc)_
+- _One of the interesting part of the Capstone project is to decide your own success/evalution criteria. That made me to think through the problem and come up with interesting approach to benchmark it using a more traditional approach._
+- _Naive Bayes fits quite well in this problem, it's simple to implement and found that it gave surprisingly good accuracy in just few minutes. In fact, I was quite surprised to see accuracy of 85% for Naive
+  Bayes algorithm. It shows how powerful it is. And, unlike Neural Networks which take hours to day to get decent accuracy, Naive Bayes produced this accuracy in just matter of 5-10 mins._
+- _Once I decided to use one model for benchmarking and then again a model as final solution. I thought, to abstract some repetitive steps in a separate python file. This is where, i ended up 
+  writing Imdb.py. This is is separate python class which has methods to load dataset, clean dataset and perform some other methods on dataset._
+- _My next major dilema in solving the problem was to weather let network learn the word embedding or use some existing word embedding like Word2Vec. Approaches in either cases 
+  are different so taking one path was essential. I decided to go ahead with network learning word representation on its own, keeping in mind that in this case performance might not be as good as using a pre-trained model._
+_ _RNN/LSTM networks are bit different that normal feed forward networks so it took a while to appreciate LSTM networks and why they are apt fit for the 
+  current problem. I did few POCs around LSTM to understand them._
+_ _Once the network was implemented, i spent some time fine tuning it. One surprising aspect was, network performance on training and test data was not consistent. 
+  On training dataset it gave good performance and reached as high as 99% but on test dataset it hovered around 85%. I played to hyperparameters to improve the performance._
+- _I think there is still scope to improve the performance. The network can still be made deeper and can be trained on GPU for quick evalution. Currently, it takes 4-5 hours on my laptop to complete one cycle of modelling._ 
+          
+  
 ### Improvement
 In the model, I let the network learn the word encoding. I think, using pre-trained models like Word2Vec can help 
-improve the performance of the model. It will also, speed up the training time of the model. 
+improve the performance of the model. I think there is still scope to improve the performance. The network can be made more deeper to improve performance. 
+Currently, it takes 4-5 hours on my laptop to complete one cycle of modelling, running it on more powerful CPU or GPU will make the training cycle quicker and that would enable to tweak the parameters and see the corresponding impact.
 
---
-In this section, you will need to provide discussion as to how one aspect of the implementation you designed could be improved. As an example, consider ways your implementation can be made more general, and what would need to be modified. You do not need to make this improvement, but the potential solutions resulting from these changes are considered and compared/contrasted to your current solution. Questions to ask yourself when writing this section:
-- _Are there further improvements that could be made on the algorithms or techniques you used in this project?_
-- _Were there algorithms or techniques you researched that you did not know how to implement, but would consider using if you knew how?_
-- _If you used your final solution as the new benchmark, do you think an even better solution exists?_
+I definitely feel that performance of the model can be pushed further. As discussed above, there are possibilities to improve the performance.  
 
 -----------
 
