@@ -228,8 +228,8 @@ Below are model details:
 The model is generic for sentiment analysis problems. I have tweaked many parameters and saw that results were almost consistent. Minor changes in parameters didn't result in any major deviation in results. So, can say that the results can be trusted.  
  
 Tested this model on another Kaggle problem(https://www.kaggle.com/c/si650winter11), Michigan University Sentiment Classification Contest.
-The data set has sentences extracted from social media and then classified into positive or negative. Model without much changes gave good results.
-
+The data set has sentences extracted from social media and then classified into positive or negative. Model without much changes gave good results. It produced an accuracy of 99% on test dataset. 
+Please check notebook *rnn-lstm-sentiment-michigan-dataset.ipynb* for details. 
 
 ### Justification
 RNN/LSTM models have proved efficient in natural language problems. LSTM cells help the network remember the inputs 
@@ -243,7 +243,7 @@ I have implemented a quite basic LSTM network but, still, it outperformed the be
 
 ### Free-Form Visualization
 ```
-Training accuracy for 10 epochs of training is: [69.96,76.81, 89.71, 93.90, 96.19, 97.38, 98.12, 98.58, 98.69, 98.92]
+Training accuracy for epochs: [69.96, 76.81, 89.71, 93.90, 96.19, 97.38, 98.12, 98.58, 98.69, 98.92]
 ```
 Let's plot the learning graph based on above values. The values are referred from the file, rnn-lstm-sentiment.ipynb.
 ![Learning Graph](images/learning-report.png)
