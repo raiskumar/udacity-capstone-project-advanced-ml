@@ -30,9 +30,7 @@ Recurrent Neural Networks are often used to deal with texts; so I will be using 
 
 
 ### Metrics
-For Naive Bayes approach, I have used Compute Receiver operating characteristic (ROC) method. This method is suitable for the binary classification problem which 
-is the case here. The ROC curve is a graphical plot that illustrates the performance of any binary classifier system as its discrimination threshold is varied.
-To understand ROC curve, please refer this(https://www.quora.com/Whats-ROC-curve).
+For Naive Bayes approach, I have used Compute Receiver operating characteristic (ROC) method. The ROC curve is a graphical plot that illustrates the performance of any binary classifier system as its discrimination threshold is varied. Basically, it classifies reviews either as positive or negative based on a threshold value. The curve is created by plotting the true positive rate against the false positive rate at various threshold settings.
 
 And for RNN technique, I have used *Sigmoid* activation function. RNN/LSTM networks are bit different than the normal feedforward
 network. Only the last output gets considered, rest all get discarded. Cost is calculated using Mean Squared Error and uses AdamOptimizer.
@@ -56,7 +54,6 @@ The file *(labeledTrainData.tsv)* is tab-delimited and has a header row followed
 
 I have used 20% of data for testing and will report the accuracy of the model on this randomly selected dataset. The remaining 80% will be used for training the model. 
 Distribution is Dataset is balanced (i.e. both positive and negative are 50% each). 12,500 are positive reviews and an equal number of negative reviews as well.
-
 
 ### Exploratory Visualization
 One of the major aspects of neural networks is that they take inputs of fixed length. Reviews are not of fixed length, this means we can't directly feed them to the network.
@@ -95,23 +92,29 @@ P(word1|label=negative) is the number of times the word1 appears in a negative t
 I have used sklearn library for implementing Naive-Bayes.
 
 #### Recurrent Neural Network/Long Short-Term Memory (RNN/LSTM):
-*Recurrent Neural Network, is basically a neural network that can be used when data is treated as a sequence, where the particular order of the 
-data-points matter. More importantly, this sequence can be of arbitrary length.*
+Natural language processing is all about creating systems that process or *understand* language in order to perform certain tasks. Sentiment analysis is an important field of NLP. As we have seen during analysis, movie review could be as small as 10 words or as big as 1000s of words. Now what it means is that, sentiment is dependent upon long semantics or feature detection. **Each word in a sentence depends greatly on what came before and comes after it. In order to account for such dependencies, Recurrent Neural Network and its variant like Long Short-Term Memory have proved quite good.** 
+The main difference between feedforward neural networks and recurrent ones is the temporal aspect of the latter. In RNNs, each word in an input sequence will be associated with a specific time step. In effect, the number of time steps will be equal to the max sequence length.
 
-They are networks with loops in them, allowing information to persist. A recurrent neural network can be thought of as multiple copies of the same network, each passing a message to a successor.
-Consider what happens if we unroll the loop. 
+*Recurrent Neural Network, is basically a neural network that can be used when data is treated as a sequence, where the particular order of the 
+data-points matter. More importantly, this sequence can be of arbitrary length.* They are networks with loops in them, allowing information to persist. A recurrent neural network can be thought of as multiple copies of the same network, each passing a message to a successor. Consider what happens if we unroll the loop. 
 
 Below is an image from famous colah blog (http://colah.github.io/posts/2015-08-Understanding-LSTMs/).
 
 ![RNN unrolled](images/RNN-unrolled.png)
 
-Recursive neural network proved to be efficient in constructing sentence representations. The model has tree
-structure, which is able to capture semantic of the sentence. 
+Recursive neural network proved to be efficient in constructing sentence representations. The model has treestructure, which is able to capture semantic of the sentence. 
 
 ![lstm 1](images/lstm-1.png)
 
-RNN suffer from vanishing gradients problem and makes it difficult to learn long-distance correlation in sequence. LSTM is a type 
-of RNN and now mostly the de-facto implementation of RNN. 
+Associated with each time step is also a new component called a hidden state vector ht. From a high level, this vector seeks to encapsulate and summarize all of the information that was seen in the previous time steps. Just like xt is a vector that encapsulates all the information of a specific word, ht is a vector that summarizes information from previous time steps.
+
+The hidden state is a function of both the current word vector and the hidden state vector at the previous time step. The sigma indicates that the sum of the two terms will be put through an activation function (normally a sigmoid or tanh).
+
+![lstm 2](images/lstm-2.png)
+
+The 2 W terms in the above formulation represent weight matrices.
+
+RNN suffer from vanishing gradients problem and makes it difficult to learn long-distance correlation in sequence. LSTM is a type of RNN and now mostly the de-facto implementation of RNN. 
 
 ### Benchmark
 Naive-Bayes approach discussed above acts as a benchmark. The final approach should be provided accuracy more than the benchmark value.
@@ -154,22 +157,29 @@ Some of the operations are:
 Apart from above it also provides some reusable methods. Imdb.py is documented properly.
 
 #### Model Implementation
-The project contains two notebooks files one for each approach. For the first benchmarking approach, I have used Naive Bayes and it's implemented using SKLearn library (check naive-bayes.ipynb).
-For the final approach, I have used LSTM and have used Tensorflow for this. The implementation can be found in rnn-lstm.ipynb. 
+
+##### Naive Bayes Classifier
+*Details-*
+*Platform: Jupyter Notebook, Python 3.6+, SK Learn library.*
+*Implementation: naive-bayes.ipynb*
+
+Naive Bayes classifier is used to arrive at the benchmark for the implementation.  As discussed in Algorithms and Techniques section, Naive Bayes is based on *Bayes' Theorem*. Initial, pre-processing part is abstracted in Imdb.py class.  Classification is implemented using Scikit-learn python machine learning library that contains implementations of all the common machine learning algorithms. 
+
+The notebook implementation is quite intuitive and I have provided comments at appropraite place. You should be able to run naive-bayes.ipynb provided the dependend libraries are in place. Also, ensure that dataset file is at appropriate path. 
+
+##### RNN/LSTM 
+*Details-*
+*Platform: Jupyter Notebook, Python 3.6+, Tensorflow*
+*Implementation: rnn-lstm-sentiment.ipynb*
+
 It's a quite simple implementation with one Input layer, one LSTM layer and the final output layer.  
 
-In RNN/LSTM model, words are passed to an embedding layer. Embedding layer is required because we have tens of 
-thousands of words, and we need a more efficient representation for our input data than one-hot encoded vectors. 
-Word2Vec or similar implementation can also be used for embedding. But it's good enough to just have an embedding 
-layer and let the network learn the embedding table on it's own.
+![RNN architecture](images/RNN-arch.png)
 
+In RNN/LSTM model, sequence of words are passed to an embedding layer. Embedding layer is required because we have tens of thousands of words, and we need a more efficient representation for our input data than one-hot encoded vectors. Word2Vec or similar implementation can also be used for embedding. But it's good enough to just have an embedding layer and let the network learn the embedding table on it's own. In the implementation, I am letting the network learn the word representation during the training process. 
 
-From the embedding layer, the new representations will be passed to LSTM cells. 
-![LSTM cell](images/lstm-cell.png)
+From the embedding layer, the new representations will be passed to LSTM cells. These will add recurrent connections to the network so we can include information about the sequence of words in the data. Finally, the LSTM cells will go to a sigmoid output layer here. We're using the sigmoid because we're trying to predict if this text has positive or negative sentiment. The output layer will just be a single unit then, with a sigmoid activation function.
 
-
-These will add recurrent connections to the network so we can include information about the sequence of words in the data. 
-Finally, the LSTM cells will go to a sigmoid output layer here. The output layer will just be a single unit then, with a sigmoid activation function.
 We don't care about the sigmoid outputs except for the very last one, we can ignore the rest. We'll calculate the cost from the output of the last step and the training label.
 
 
