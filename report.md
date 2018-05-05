@@ -160,8 +160,8 @@ Apart from above it also provides some reusable methods. Imdb.py is documented p
 
 ##### Naive Bayes Classifier
 *Details-*
-*Platform: Jupyter Notebook, Python 3.6+, SK Learn library.*
-*Implementation: naive-bayes.ipynb*
+- *Platform: Jupyter Notebook, Python 3.6+, SK Learn library.*
+- *Implementation: naive-bayes.ipynb*
 
 Naive Bayes classifier is used to arrive at the benchmark for the implementation.  As discussed in Algorithms and Techniques section, Naive Bayes is based on *Bayes' Theorem*. Initial, pre-processing part is abstracted in Imdb.py class.  Classification is implemented using Scikit-learn python machine learning library that contains implementations of all the common machine learning algorithms. 
 
@@ -169,8 +169,8 @@ The notebook implementation is quite intuitive and I have provided comments at a
 
 ##### RNN/LSTM 
 *Details-*
-*Platform: Jupyter Notebook, Python 3.6+, Tensorflow*
-*Implementation: rnn-lstm-sentiment.ipynb*
+- *Platform: Jupyter Notebook, Python 3.6+, Tensorflow*
+- *Implementation: rnn-lstm-sentiment.ipynb*
 
 It's a quite simple implementation with one Input layer, one LSTM layer and the final output layer.  
 
