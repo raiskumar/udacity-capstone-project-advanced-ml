@@ -159,18 +159,22 @@ Apart from above it also provides some reusable methods. Imdb.py is documented p
 #### Model Implementation
 
 ##### Naive Bayes Classifier
+```
 *Details-*
-- *Platform: Jupyter Notebook, Python 3.6+, SK Learn library.*
+- *Platform: Jupyter Notebook, Python 3.6+, SK Learn library, Numpy*
 - *Implementation: naive-bayes.ipynb*
+```
 
 Naive Bayes classifier is used to arrive at the benchmark for the implementation.  As discussed in Algorithms and Techniques section, Naive Bayes is based on *Bayes' Theorem*. Initial, pre-processing part is abstracted in Imdb.py class.  Classification is implemented using Scikit-learn python machine learning library that contains implementations of all the common machine learning algorithms. 
 
 The notebook implementation is quite intuitive and I have provided comments at appropraite place. You should be able to run naive-bayes.ipynb provided the dependend libraries are in place. Also, ensure that dataset file is at appropriate path. 
 
 ##### RNN/LSTM 
+```
 *Details-*
-- *Platform: Jupyter Notebook, Python 3.6+, Tensorflow*
+- *Platform: Jupyter Notebook, Python 3.6+, Tensorflow, Numpy*
 - *Implementation: rnn-lstm-sentiment.ipynb*
+```
 
 It's a quite simple implementation with one Input layer, one LSTM layer and the final output layer.  
 
@@ -183,14 +187,9 @@ From the embedding layer, the new representations will be passed to LSTM cells. 
 We don't care about the sigmoid outputs except for the very last one, we can ignore the rest. We'll calculate the cost from the output of the last step and the training label.
 
 ##### Naive Bayes vs RNN/LSTM Approach
-*Performance (as per attached notebook files)-*
-- Naive Bayes Classifier: 85.25
-- RNN/LSTM: 86.8
-
 Naive Bayes approach is quite trivial compared to RNN implementation and there is not much scope to improve the performance of the implementation further. It doesn't take into account relative order of words, it just goes by the presenece/absence of words and their frequencies. RNN/LSTM approach on the other hand takes into account the meaning of the words by taking into account it's neighbouring words. The network implemented in the notebook is one of the simplest possible and there is lot of scope to improve it further; it can be made more deeper and can use pre-trained word vectors. 
 
 The major challenge which I faced with the RNN implementation is that the network is overfitting on the training data. I have put a dropout layer to control overfitting but it didn't make much difference. 
-
 
 ### Refinement
 Below are parameters which I tweaked to improve the performance:
@@ -200,11 +199,17 @@ Below are parameters which I tweaked to improve the performance:
 - dropout_rate: used 0.9
 - learning_rate: started with 0.001 and then finally used 0.01
 
+
 ## IV. Results
 
 ### Model Evaluation and Validation
-During model implementation, tested the performance by varying different hyperparameters:
+*Performance (as per attached notebook files)-*
+```
+- Naive Bayes Classifier: 85.25
+- RNN/LSTM: 86.8
+```
 
+During model implementation, tested the performance by varying different hyperparameters:
 - Removed all characters other than alphabets i.e. only [a-z]
 - Removed all stop words and stemmerized to keep the vocab limited
 - For word embedding; used embedding layer and let the network learn the appropriate representation of encoding of the 
