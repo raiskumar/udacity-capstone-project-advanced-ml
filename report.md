@@ -266,6 +266,4 @@ I thoroughly enjoyed exploring sentiment analysis. I was aware of the subject ea
   
 ### Improvement
 In the model, I let the network learn the word encoding. I think, using pre-trained models like Word2Vec can help improve the performance of the model.
-The network can be made deeper to improve performance. 
-
-As discussed above, there are possibilities to improve the performance further. 
+The network can also be made more deeper to improve performance. 
