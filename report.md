@@ -203,27 +203,29 @@ Below are parameters which I tweaked to improve the performance:
 ## IV. Results
 
 ### Model Evaluation and Validation
+
 *Performance (as per attached notebook files)-*
 ```
 - Naive Bayes Classifier: 85.25
 - RNN/LSTM: 86.8
 ```
 
-During model implementation, tested the performance by varying different hyperparameters:
+Below are model details:
 - Removed all characters other than alphabets i.e. only [a-z]
 - Removed all stop words and stemmerized to keep the vocab limited
-- For word embedding; used embedding layer and let the network learn the appropriate representation of encoding of the 
-  words on its own in the course of training.
-- Reviews length are variable. Fixed the sequence length to 250 words. Reviews which are more than 250 words will have
-  only last 250 words. And reviews which are less than 250 words will get padded with 0 in the beginning.
-- From the embedding layer, the new representations will be passed to LSTM cells. These will add recurrent 
-  connections to the network so we can include information about the sequence of words in the data.
-- Wrap that LSTM cell in a dropout layer to help prevent the network from overfitting.
-- LSTM cells go to sigmoid output. 
-- We don't care about the sigmoid outputs except for the very last one, we can ignore the rest.  
+- For naive bayes, used all default values for measuring error and for calculating area uder curve
+- For word embedding; used embedding layer and let the network learn the appropriate representation of encoding of the words on its own in the course of training.
+- Used embed_size as 250. Tried 300 as well but didn't see much performance gain.
+- Used dropout_rate = 0.9. 
+- Reviews length are variable. Fixed the sequence length to 250 words, i.e. seq_len = 250. Reviews which are more than 250 words will have only last 250 words. And reviews which are less than 250 words will get padded with 0 in the beginning.
+- Learning rate: learning_rate = 0.001
+- Hidden layer: number_of_layers = 1. Fixed this to ensure that training happens in resonable time. 
+- Activation Function: sigmoid. Explored Relu and Softmax but got best result with Sigmoid.
+- LSTM size, hidden_layer_size = 512 . Explored with 128, 256 as well. Amount of time it takes to train is directly dependent on this number. Got best result with 512.
+- Batch size, batch_size = 25. So at one time 25 reviews were fed in training phase.
+- Number of epochs; epochs = 10 
 
-The model is generic for sentiment analysis problems. I have tweaked many parameters and saw that results were almost consistent. Minor changes in parameters didn't result in
-major deviation in results. So, can say that the results can be trusted.  
+The model is generic for sentiment analysis problems. I have tweaked many parameters and saw that results were almost consistent. Minor changes in parameters didn't result in any major deviation in results. So, can say that the results can be trusted.  
  
 Tested this model on another Kaggle problem(https://www.kaggle.com/c/si650winter11), Michigan University Sentiment Classification Contest.
 The data set has sentences extracted from social media and then classified into positive or negative. Model without much changes gave good results.
@@ -234,18 +236,18 @@ RNN/LSTM models have proved efficient in natural language problems. LSTM cells h
 which are important. So certain words which can play a major role in deciding if the sentiment is positive or negative will
 get captured. 
 
-I have implemented a quite basic LSTM network but, still, it outperformed the benchmark model (through Naive-Bayes)
-accuracy. The fundamental problem with Naive Bayes approach is that it doesn't take into order the the relative positive of words in the review or sentences. 
-It barely goes by the presence, absence of a word and how many times it appeared. But, LSTM model captures the order part as well. It can
-also capture the influence of a word or words which appeared to say 100 words before. 
-
-In this section, your model’s final solution and its results should be compared to the benchmark you established earlier in the project using some type of statistical analysis. You should also justify whether these results and the solution are significant enough to have solved the problem posed in the project. Questions to ask yourself when writing this section:
-- _Are the final results found stronger than the benchmark result reported earlier?_
-- _Have you thoroughly analyzed and discussed the final solution?_
-- _Is the final solution significant enough to have solved the problem?_
+I have implemented a quite basic LSTM network but, still, it outperformed the benchmark model (through Naive-Bayes) accuracy. The fundamental problem with Naive Bayes approach is that it doesn't take into order the the relative positive of words in the review or sentences. It barely goes by the presence, absence of a word and how many times it appeared. But, LSTM model captures the order part as well. It can also capture the influence of a word or words which appeared to say 100 words before. 
 
 
 ## V. Conclusion
+
+### Free-Form Visualization
+```
+Training accuracy for 10 epochs of training is: [69.96,76.81, 89.71, 93.90, 96.19, 97.38, 98.12, 98.58, 98.69, 98.92]
+```
+Let's plot the learning graph based on above values. The values are referred from the file, rnn-lstm-sentiment.ipynb.
+![Learning Graph](images/learning-report.png)
+
 
 ### Reflection
 I thoroughly enjoyed exploring sentiment analysis. I was aware of the subject earlier but had never explored it so deeper. Here are major steps:
