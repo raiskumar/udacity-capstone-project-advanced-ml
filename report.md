@@ -182,6 +182,15 @@ From the embedding layer, the new representations will be passed to LSTM cells. 
 
 We don't care about the sigmoid outputs except for the very last one, we can ignore the rest. We'll calculate the cost from the output of the last step and the training label.
 
+##### Naive Bayes vs RNN/LSTM Approach
+*Performance (as per attached notebook files)-*
+- Naive Bayes Classifier: 85.25
+- RNN/LSTM: 86.8
+
+Naive Bayes approach is quite trivial compared to RNN implementation and there is not much scope to improve the performance of the implementation further. It doesn't take into account relative order of words, it just goes by the presenece/absence of words and their frequencies. RNN/LSTM approach on the other hand takes into account the meaning of the words by taking into account it's neighbouring words. The network implemented in the notebook is one of the simplest possible and there is lot of scope to improve it further; it can be made more deeper and can use pre-trained word vectors. 
+
+The major challenge which I faced with the RNN implementation is that the network is overfitting on the training data. I have put a dropout layer to control overfitting but it didn't make much difference. 
+
 
 ### Refinement
 Below are parameters which I tweaked to improve the performance:
